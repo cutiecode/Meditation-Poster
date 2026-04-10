@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  authorName  String
+  bookChapter String
+  type        String
+  content     String?
+  audioPath   String?
+  photoPath   String?
+  videoPath   String?
+  status      String   @default("pending")
+  posterPath  String?
+}
+
+model Template {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  name           String
+  familyName     String?
+  backgroundPath String
+  textColor      String   @default("#FFFFFF")
+  textPosition   String   @default("bottom")
+  overlayOpacity Float    @default(0.4)
+  fontFamily     String   @default("Cormorant Garamond")
+  isActive       Boolean  @default(false)
+}
+
+model Settings {
+  id               String  @id @default("singleton")
+  activeTemplateId String?
+}
